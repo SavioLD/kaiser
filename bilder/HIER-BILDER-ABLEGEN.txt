@@ -1,38 +1,36 @@
-BILDMATERIAL FÜR DIE KARRIERESEITE
-==================================
+BILDMATERIAL – AKTUELLER STAND
+==============================
 
-Dateien einfach in diesen Ordner legen – die Seite zieht sie automatisch.
-Es ist KEIN Code-Eingriff nötig.
+IM EINSATZ
+----------
+Logo-KAISER-FAHRZEUGBAU.svg
+    Original-Logo, einfarbig #982222. Kopfzeile (heller Hintergrund).
+    Unveraendert uebernommen.
 
-1) LOGO (ersetzt den Schriftzug in Kopfzeile, Hero und Footer)
-   Gesucht wird in dieser Reihenfolge:
-     kaiser-logo.svg
-     kaiser-logo.png
-     logo.svg
-     logo.png
-     logo.jpg
-   -> SVG bevorzugt (scharf auf allen Displays).
-   -> Bitte das ORIGINAL-Logo, unverändert: nicht nachbauen, nicht
-      einfärben, Seitenverhältnis nicht verzerren.
+Logo-KAISER-FAHRZEUGBAU-weiss.svg
+    Negativ-/Knockout-Fassung fuer Hero und Footer (dunkler Hintergrund).
+    Aus dem Original erzeugt: NUR der Fuellwert #982222 wurde durch
+    #ffffff ersetzt. Pfade, Proportionen und Seitenverhaeltnis sind
+    identisch. Gibt es eine offizielle Negativ-Version aus dem
+    Styleguide: einfach unter diesem Dateinamen ersetzen.
 
-2) LOGO IN WEISS (für Hero und Footer – dunkler Hintergrund)
-     kaiser-logo-weiss.svg
-     kaiser-logo-weiss.png
-     logo-weiss.svg
-     logo-weiss.png
-   -> Fehlt eine weiße Version, wird automatisch das normale Logo benutzt.
+Kopfbild_OffeneStellen_202505.jpg   (2000 x 667)
+    Hero-Foto. Der Bildausschnitt ist nach rechts verschoben
+    (background-position 72%), weil links das Textpanel liegt.
 
-3) HERO-FOTO (großes Bild im Kopfbereich)
-     hero.jpg   (oder hero.jpeg / hero.png / hero.webp)
-     werkstatt.jpg
-   -> Querformat, mindestens 1920 px breit.
-   -> Motiv am besten mit Platz auf der rechten Seite: links liegt der Text.
-   -> Fehlt das Foto, bleibt der dunkelblaue Farbverlauf stehen –
-      die Seite sieht also auch ohne Bild fertig aus.
+NOCH NICHT VERWENDET
+--------------------
+csm_Karriere_Fahrzeugbauer1_red_c1157d1502.jpg   (550 x 365)
+csm_Ladekran8_ba82e6b4a6.jpg                     (367 x 244)
+    Von der Website heruntergerechnete Varianten, zu klein fuer
+    grossflaechigen Einsatz. Fuer Meta-Creatives (1080 x 1350 /
+    1080 x 1920) werden die Originale in voller Aufloesung gebraucht.
 
-HINWEIS ZUM CI
---------------
-kaiser-fahrzeugbau.de war aus der Build-Umgebung nicht erreichbar.
-Die Farben in index.html (:root-Block ganz oben) sind daher eine
-Annäherung. Sobald das Logo hier liegt, bitte kurz gegenprüfen, ob
-die Rot- und Blautöne passen – geändert wird an genau einer Stelle.
+WEITERE BILDER ERGAENZEN
+------------------------
+Einfach hier ablegen, die Seite findet sie automatisch:
+    Hero-Foto : hero.jpg / hero.jpeg / hero.png / hero.webp
+    Logo      : kaiser-logo.svg|.png  oder  logo.svg|.png|.jpg
+    Logo weiss: kaiser-logo-weiss.svg|.png  oder  logo-weiss.svg|.png
+Querformat fuer den Hero, mindestens 1920 px breit, Motiv am besten mit
+Platz auf der rechten Seite.

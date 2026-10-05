@@ -35,34 +35,40 @@ bewusst **keine** Sammelbegriffe, keine Initiativbewerbung, keinen Bereich
 
 ## ⚠️ Zwei Punkte, die noch deine Freigabe brauchen
 
-### 1. CI ist eine Annäherung, nicht aus der Website gezogen
+### 1. Logo auf Dunkel ist eine erzeugte Weiß-Variante
 
-`kaiser-fahrzeugbau.de` war aus der Build-Umgebung **nicht erreichbar**
-(die Netzwerk-Policy der Session hat die Domain blockiert). Farben, Schriften
-und Logo konnten deshalb **nicht 1:1 von der Website übernommen** werden.
+Das CI steht jetzt **exakt**: Das Original-Logo
+`bilder/Logo-KAISER-FAHRZEUGBAU.svg` verwendet genau **einen** Farbwert –
+**`#982222`**. Genau der ist als `--brand` gesetzt, alle weiteren Rottöne
+sind davon abgeleitet, die Neutraltöne sind ein warmes Anthrazit
+(`#1f1d1d`), das zum Backsteinrot passt. Angepasst wird weiterhin nur im
+`:root`-Block ganz oben in `index.html`.
 
-Aktuell gesetzt ist eine abgestimmte **Rot/Dunkelblau**-Kombination plus
-Schriftzug-Logo als Platzhalter. Alle Werte stecken **ausschließlich** im
-`:root`-Block ganz oben in `index.html` – dort einmal ändern, die ganze
-Seite zieht nach:
+Das Logo ist einfarbig rot. Auf dem dunklen Hero und im dunklen Footer
+hätte Rot auf Anthrazit nur ca. 2,4:1 Kontrast – unlesbar. Deshalb liegt
+dort eine **Weiß-Variante**: `bilder/Logo-KAISER-FAHRZEUGBAU-weiss.svg`.
+Sie ist aus dem Original erzeugt, indem ausschließlich der Füllwert
+`#982222` → `#ffffff` getauscht wurde. **Alle Pfade, Proportionen und das
+Seitenverhältnis sind unverändert** – es ist kein Nachbau, sondern die
+übliche Negativ-/Knockout-Fassung für dunkle Flächen.
 
-```css
---brand:#e2001a;      /* Kaiser-Rot: Buttons, Akzente        */
---brand-dark:#b60015; /* Hover-Zustand                       */
---brand-700:#a50014;  /* Rot-Ton für Text auf Hell           */
---brand-900:#13233a;  /* Dunkelblau: Headlines, Hero, Footer */
---brand-soft:#ffeaec; /* heller Rot-Ton für Flächen          */
---on-brand:#ffffff;   /* Textfarbe AUF Rot (Kontrast!)       */
---f-display:"Archivo" /* Headlines                           */
---f-body:"Inter"      /* Fließtext                           */
-```
+👉 Wenn es eine **offizielle** Negativ-Version aus dem Styleguide gibt,
+einfach unter diesem Dateinamen ersetzen – die Seite zieht sie automatisch.
 
-**Sobald du das Logo ins Repo lädst**, ersetzt es den Schriftzug automatisch –
-es ist kein Code-Eingriff nötig. Gesucht wird in dieser Reihenfolge:
-`bilder/kaiser-logo.svg|.png`, `bilder/logo.svg|.png|.jpg`, für Hero und
-Footer zusätzlich `bilder/kaiser-logo-weiss.svg|.png` bzw. `bilder/logo-weiss.*`.
-Ein Hero-Foto als `bilder/hero.jpg` (oder `.png`/`.webp`) wird ebenfalls
-automatisch gezogen; fehlt es, bleibt der Farbverlauf stehen.
+Verwendet wird:
+
+| Datei | Einsatz |
+|---|---|
+| `Logo-KAISER-FAHRZEUGBAU.svg` | Kopfzeile (heller Hintergrund), im Original-Rot |
+| `Logo-KAISER-FAHRZEUGBAU-weiss.svg` | Hero und Footer (dunkler Hintergrund) |
+| `Kopfbild_OffeneStellen_202505.jpg` | Hero-Foto (2000 × 667) |
+
+**Noch nicht verwendet**, weil zu klein:
+`csm_Karriere_Fahrzeugbauer1_red_c1157d1502.jpg` (550 × 365) und
+`csm_Ladekran8_ba82e6b4a6.jpg` (367 × 244). Beides sind von der Website
+heruntergerechnete Varianten. Für die Seite wären sie nur als kleine
+Akzentbilder brauchbar, für Meta-Creatives (1080 × 1350 bzw. 1080 × 1920)
+reichen sie nicht – da bräuchte ich die **Originale in voller Auflösung**.
 
 ### 2. Anforderungen „Personalsachbearbeitung / Lohnbuchhaltung"
 
