@@ -226,6 +226,44 @@ gesendet, es gibt keine Dubletten und keine Sammelfelder.
 
 Die Frage-Felder unterscheiden sich je Stelle (jede hat ihre eigene Kachel).
 
+## Creatives (Meta Ads)
+
+Fünf Creatives im Format **9:16 (1080 × 1920)** – eines je Stelle, jedes mit
+einem anderen Motiv. Erzeugt werden sie aus einer Config:
+
+```bash
+node creatives/build.mjs
+```
+
+Der Generator nutzt **ausschließlich** das Material aus `bilder/`, im CI der
+Karriereseite (Rot `#982222`, Archivo/Inter, Original-Logo in Weiß). Die
+Schriften liegen als woff2 in `creatives/fonts/`, damit das Rendering
+offline und reproduzierbar ist.
+
+| Datei | Motiv | Quelle | Hochskalierung |
+|---|---|---|---|
+| `mechatroniker-9x16.png` | Schleifen, Funkenflug | Kopfbild, Ausschnitt 24 % | 1,19× |
+| `fahrzeugelektriker-9x16.png` | Schweißen, Lichtbogen | Kopfbild, Ausschnitt 100 % | 1,19× |
+| `fahrzeugbauer-9x16.png` | Aufbau/Rahmen am Fahrzeug | Kopfbild, Ausschnitt 56 % | 1,19× |
+| `personal-9x16.png` | Fahrzeuge auf dem Hof | `csm_Ladekran8` | **2,94×** |
+| `ausbildung-9x16.png` | Arbeit am Kran | `csm_Karriere_Fahrzeugbauer1` | **1,96×** |
+
+Das große Kopfbild (2000 × 667) enthält drei klar unterscheidbare Szenen;
+über `posX` wird der jeweilige Ausschnitt gewählt. So entstehen fünf
+verschiedene Motive aus drei Dateien.
+
+> **Zur Bildschärfe:** Die drei Motive aus dem Kopfbild werden nur um 1,19×
+> hochskaliert – das ist unkritisch. `personal-9x16.png` basiert auf einer
+> 367 px breiten Datei und muss um **2,94×** hochskaliert werden; das sieht
+> man. Mit den Originalen in voller Auflösung einmal `node creatives/build.mjs`
+> laufen lassen, dann ist es weg.
+
+**Layout:** Der Generator misst nach dem Rendern selbst nach und bricht mit
+Fehler ab, wenn sich Text und CTA überlagern, etwas aus dem Bild ragt oder
+Inhalte in Metas Sicherheitszonen geraten (oben 250 px, unten 340 px, auf
+1920 px Höhe). Der Textblock wird in einem zweiten Durchlauf mittig in den
+freien Raum gesetzt.
+
 ## Qualitätssicherung
 
 Die Seite wurde automatisiert im echten Browser (Chromium) getestet –
