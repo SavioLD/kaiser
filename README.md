@@ -231,6 +231,8 @@ Die Frage-Felder unterscheiden sich je Stelle (jede hat ihre eigene Kachel).
 Die Seite wurde automatisiert im echten Browser (Chromium) getestet –
 Testskripte unter `tests/`:
 
+- **Kein horizontales Scrollen** auf 320–1440 px: `scrollWidth` entspricht
+  exakt dem Viewport, kein Element ragt heraus.
 - **Mobile Laufruhe** auf 320/360/375/390/412/430 px Breite × 5 Stellen:
   `scrollY` bleibt über alle Schrittwechsel **exakt konstant** (inkl. Zurück),
   Seitenhöhe konstant, Containerhöhe konstant.
@@ -252,6 +254,21 @@ Testskripte unter `tests/`:
 node tests/laufruhe.mjs   # Scroll-/Höhenstabilität
 node tests/funktion.mjs   # K.-o.-Logik, Payloads, Webhooks, Deeplinks
 ```
+
+### Behobener Fehler: Seite ließ sich am Handy seitlich schieben
+
+Grid-Spuren mit `1fr` haben implizit `min-width:auto` und können deshalb
+**nicht** unter die min-content-Breite ihres Inhalts schrumpfen. In der
+Trust-Leiste hat das lange Kompositum „Familienunternehmen" die Spalte
+aufgespannt, zwei Spalten ergaben 512 px – mehr als jedes Handy breit ist.
+Folge: Die Seite ließ sich seitlich schieben und war am Rand abgeschnitten.
+`body{overflow-x:hidden}` hat das nicht aufgefangen, weil der Überlauf
+real war und nicht nur optisch.
+
+Behoben durch `minmax(0,1fr)` in **allen** Grids (Trust, Benefits, Ablauf,
+Formularzeile) plus `min-width:0` und Worttrennung in der Trust-Leiste;
+unter 560 px steht sie jetzt einspaltig. Der Test oben deckt genau diesen
+Fall ab.
 
 > **Noch offen:** Ein **echter Testeintrag** in der Lead Table konnte aus der
 > Build-Umgebung nicht abgesetzt werden – `api-v2.lead-table.com` ist von der

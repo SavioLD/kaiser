@@ -24,6 +24,37 @@ async function settle(page){
 // click WITHOUT the harness scrolling: dispatch directly in the page
 const tap=(page,sel)=>page.evaluate(s=>{const e=document.querySelector(s); if(!e) throw new Error('missing '+s); e.click();},sel);
 
+/* ---------------------------------------------------------------------
+   KEIN SEITLICHES SCROLLEN
+   Regression: 1fr-Grid-Spuren haben min-width:auto und koennen nicht unter
+   die min-content-Breite ihres Inhalts schrumpfen. Ein langes deutsches
+   Kompositum hat die Trust-Leiste auf 512px aufgeblaeht - die Seite liess
+   sich auf dem Handy seitlich schieben und war am Rand abgeschnitten.
+   Dieser Test schlaegt an, sobald irgendein Element den Viewport sprengt.
+   --------------------------------------------------------------------- */
+console.log('\n=== KEIN HORIZONTALER UEBERLAUF ===');
+for (const w of [320,360,375,390,412,430,560,768,1024,1440]){
+  const ctx=await browser.newContext({viewport:{width:w,height:900},isMobile:w<500,hasTouch:w<500});
+  const page=await ctx.newPage();
+  await page.goto(URL); await page.waitForTimeout(700);
+  const r=await page.evaluate(()=>{
+    const de=document.documentElement;
+    const vw=de.clientWidth, bad=[];
+    document.querySelectorAll('body *').forEach(e=>{
+      const rc=e.getBoundingClientRect();
+      if(rc.width===0&&rc.height===0) return;
+      if(getComputedStyle(e).position==='fixed') return;          // richten sich nach dem Viewport
+      if(rc.left+window.scrollX < -1000) return;                  // Honeypot liegt bewusst weit links
+      if(rc.right+window.scrollX > vw+1)
+        bad.push(e.tagName.toLowerCase()+(e.className?'.'+String(e.className).split(' ')[0]:''));
+    });
+    return {scrollW:de.scrollWidth, clientW:vw, bad:[...new Set(bad)].slice(0,6)};
+  });
+  if(r.scrollW<=r.clientW && !r.bad.length) ok(`${w}px: scrollWidth ${r.scrollW} = Viewport, kein Element ragt heraus`);
+  else bad(`${w}px: scrollWidth ${r.scrollW} > Viewport ${r.clientW}; heraus ragen: ${r.bad.join(', ')||'-'}`);
+  await ctx.close();
+}
+
 for (const vp of [{width:320,height:568},{width:360,height:640},{width:375,height:667},{width:390,height:844},{width:412,height:915},{width:430,height:932}]){
   console.log(`\n=== VIEWPORT ${vp.width}x${vp.height} ===`);
   for (const job of JOBS){
